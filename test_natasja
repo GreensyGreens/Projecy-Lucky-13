@@ -1,0 +1,14 @@
+COPY genre(fname,	metacleanid,	saledid)
+FROM 'C:\Users\Public\genre2.csv'
+DELIMITER ','
+CSV HEADER;
+
+SELECT * FROM genre
+
+
+COPY keywords(keywordsid, keyword, saledid)
+FROM 'C:\Users\Public\keywords.csv'
+DELIMITER ','
+CSV HEADER;
+
+SELECT * FROM keywords
