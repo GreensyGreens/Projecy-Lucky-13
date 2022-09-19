@@ -1,0 +1,4 @@
+COPY public.review_user (reviewingsid, idvscore, reviewer, datep, Review, thumbsUp,	thumbsTot, WC,	Analytic, Clout, authentic,	Tone,	WPS,	Sixltr,	Dic, ffunction,	pronoun, ppron, i, we, you,	shehe,	they,	ipron,	article, prep, auxverb,	adverb,	conj, negate, verb,	adj, compare, interrog,	nnumber, quant,	affect,	posemo,	negemo,	anx,	anger,	sad, social, ffamily, friend,	female,	male,	cogproc,	insight,	cause,	discrep,	tentat,	certain,	differ,	percept,	see,	hear,	feel,	bio, body,	health,	sexual,	ingest,	drives,	affiliation,	achieve,	ppower,	reward,	risk,	focuspat,	focuspresent,	focusfuture,	relativ,	motion,	sspace,	ttime,	wwork,	leisure,	home,	mmoney,	relig,	death,	informal,	swear,	netspeak,	assent,	nonflu,	filler,	AllPunc, Pperiod,	Comma,	Colon,	SemiC,	QMark,	Exclam,	Dash,	qquote,	Apostro, Perenth,	OtherP,	Url)
+FROM 'C:\Users\Public\User_Reviews_Final_Clean_5.csv' 
+DELIMITER ',' 
+CSV HEADER;
