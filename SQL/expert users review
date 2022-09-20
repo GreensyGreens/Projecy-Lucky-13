@@ -1,0 +1,388 @@
+COPY review_expert(review_expertid,idvscore,reviewer,review,datep,WC,Analytic,Clout,Authentic,Tone,WPS,Sixltr,Dic,ffunction,pronoun,ppron,I,We,You,shehe,they,ipron,article,prep,auxverb,adverb,conj,negate,verb,adj,compare,interrog,nnumber,quant,affect,posemo,negemo,anx,anger,sad,social,ffamily,friend,female,male,cogproc,insight,cause,discrep,tentat,certain,differ,percept,see,hear,feel,bio,body,health,sexual,ingest,drives,affiliation,achieve,ppower,reward,risk,focuspat,focuspresent,focusfuture,relativ,motion,sspace,ttime,wwork,leisure,home,mmoney,relig,death,informal,swear,netspeak,assent,nonflu,filler,ALLPunc,Pperiod,Comma,Colon,SemiC,QMark,Exclam,Dash,Qquote,Apostro,Perenth,OtherP,Url)
+FROM 'C:\Users\Public\exp_review1.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+and postgres latest sql
+
+-- Drop statement 
+-- First the constraints are droped 
+-- Then the table
+ALTER TABLE IF EXISTS Review_Expert DROP CONSTRAINT FKReview_Exp977219;
+ALTER TABLE IF EXISTS Review_User DROP CONSTRAINT FKReview_Use745979;
+ALTER TABLE IF EXISTS Studio_Movie DROP CONSTRAINT FKStudio_Mov511541;
+ALTER TABLE IF EXISTS Studio_Movie DROP CONSTRAINT FKStudio_Mov223025;
+ALTER TABLE IF EXISTS Review_Expert DROP CONSTRAINT FKReview_Exp139751;
+ALTER TABLE IF EXISTS Review_User DROP CONSTRAINT FKReview_Use108640;
+ALTER TABLE IF EXISTS Movie_Award DROP CONSTRAINT FKMovie_Awar378420;
+ALTER TABLE IF EXISTS Movie_Award DROP CONSTRAINT FKMovie_Awar370254;
+ALTER TABLE IF EXISTS Movie_genre DROP CONSTRAINT FKMovie_genr808331;
+ALTER TABLE IF EXISTS Movie_genre DROP CONSTRAINT FKMovie_genr658527;
+ALTER TABLE IF EXISTS Movie_Actor DROP CONSTRAINT FKMovie_Acto956060;
+ALTER TABLE IF EXISTS Movie_Actor DROP CONSTRAINT FKMovie_Acto428200;
+ALTER TABLE IF EXISTS Director_Movie DROP CONSTRAINT FKDirector_94552;
+ALTER TABLE IF EXISTS Director_Movie DROP CONSTRAINT FKDirector_583569;
+ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_757180;
+ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_718771;
+ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t621933;
+ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t315674;
+DROP TABLE IF EXISTS Actor CASCADE;
+DROP TABLE IF EXISTS Award CASCADE;
+DROP TABLE IF EXISTS creative_type CASCADE;
+DROP TABLE IF EXISTS creative_type_Movie CASCADE;
+DROP TABLE IF EXISTS Director CASCADE;
+DROP TABLE IF EXISTS Director_Movie CASCADE;
+DROP TABLE IF EXISTS genre CASCADE;
+DROP TABLE IF EXISTS keywords CASCADE;
+DROP TABLE IF EXISTS keywords_Movie CASCADE;
+DROP TABLE IF EXISTS Movie CASCADE;
+DROP TABLE IF EXISTS Movie_Actor CASCADE;
+DROP TABLE IF EXISTS Movie_Award CASCADE;
+DROP TABLE IF EXISTS Movie_genre CASCADE;
+DROP TABLE IF EXISTS Review_Expert CASCADE;
+DROP TABLE IF EXISTS Review_User CASCADE;
+DROP TABLE IF EXISTS Reviewer CASCADE;
+DROP TABLE IF EXISTS Studio CASCADE;
+DROP TABLE IF EXISTS Studio_Movie CASCADE;
+
+-- create table statement 
+
+CREATE TABLE Actor (
+  ActorId     SERIAL NOT NULL, 
+  fName       varchar(255), 
+  metaCleanId int4, 
+  PRIMARY KEY (ActorId));
+  
+CREATE TABLE Award (
+  AwardId     SERIAL NOT NULL, 
+  fName      varchar(255), 
+  metaCleanId int4, 
+  PRIMARY KEY (AwardId));
+  
+CREATE TABLE creative_type (
+  creative_typeId SERIAL NOT NULL, 
+  fName              varchar(255), 
+  saledId            int4, 
+  PRIMARY KEY (creative_typeId));
+  
+CREATE TABLE creative_type_Movie (
+  creative_typecreative_typeId int4 NOT NULL, 
+  MovieMovieId  int4 NOT NULL, 
+  PRIMARY KEY (creative_typecreative_typeId,MovieMovieId));
+
+CREATE TABLE Director (
+  DirectorId SERIAL NOT NULL, 
+  fName         varchar(255), 
+  metaCleanId   int4, 
+  PRIMARY KEY (DirectorId));
+  
+CREATE TABLE Director_Movie (
+  DirectorDirectorId int4 NOT NULL, 
+  MovieMovieId           int4 NOT NULL, 
+  PRIMARY KEY (DirectorDirectorId,   MovieMovieId));
+  
+CREATE TABLE genre (
+  genreId     SERIAL NOT NULL, 
+  fName       varchar(255), 
+  metaCleanId int4, 
+  saledId     int4, 
+  PRIMARY KEY (genreId));
+CREATE TABLE keywords (
+  keywordsId SERIAL NOT NULL, 
+  Keyword       varchar(255), 
+  saledId       int4, 
+  PRIMARY KEY (keywordsId));
+  
+CREATE TABLE keywords_Movie (
+  keywordskeywordsId int4 NOT NULL, 
+  MovieMovieId           int4 NOT NULL, 
+  PRIMARY KEY (keywordskeywordsId, MovieMovieId));
+
+CREATE TABLE Movie (
+  MovieId                      SERIAL NOT NULL, 
+  saledId                      int4, 
+  yyear                         date, 
+  title                        varchar(255), 
+  runtime                      int4, 
+  international_box_office     varchar(255), 
+  domestic_box_office          int4, 
+  worldwide_box_office         BIGINT, 
+  production_budget            int4, 
+  theatre_count                int4, 
+  opening_weekend              int4,	
+  aaverage_run_per_theatre    float4, 
+  release_date                 date, 
+  summary                      varchar(700), 
+  metascore                    int4, 
+  userscore                    float4,  
+  metaCleanId                  int4, 
+  salesUrl                     varchar(255), 
+  MetaCleanUrl                 varchar(255), 
+  PRIMARY KEY (MovieId));
+CREATE TABLE Movie_Actor (
+  MovieMovieId int4 NOT NULL, 
+  ActorActorId int4 NOT NULL, 
+  PRIMARY KEY (MovieMovieId,  ActorActorId));
+  
+CREATE TABLE Movie_Award (
+  MovieMovieId int4 NOT NULL, 
+  AwardAwardId int4 NOT NULL, 
+  PRIMARY KEY (MovieMovieId, AwardAwardId));
+  
+CREATE TABLE Movie_genre (
+  MovieMovieId int4 NOT NULL, 
+  genregenreId int4 NOT NULL, 
+  PRIMARY KEY (MovieMovieId, genregenreId));
+  
+CREATE TABLE Review_Expert (
+  Review_ExpertId    int4, 
+  MovieMovieId       int4, 
+  ReviewerReviewerId int4, 
+  reviewingsid       int4,
+  idvscore           int4, 
+  reviewer           varchar(10000),	
+  Review             varchar(10000), 
+  dateP              date, 
+  WC                 int4, 
+  Analytic           float4, 
+  Clout              float4, 
+  Authentic          float4, 
+  Tone               float4, 
+  WPS                float4, 
+  Sixltr             float4, 
+  Dic                float4, 
+  ffunction          float4, 
+  pronoun            float4, 
+  ppron              float4, 
+  I                  float4, 
+  We                 float4, 
+  You                float4, 
+  shehe              float4, 
+  they               float4, 
+  ipron              float4, 
+  article            float4, 
+  prep               float4, 
+  auxverb            float4, 
+  adverb             float4, 
+  conj               float4, 
+  negate             float4, 
+  verb               float4, 
+  adj                float4, 
+  compare            float4, 
+  interrog           float4, 
+  nnumber             float4, 
+  quant              float4, 
+  affect             float4, 
+  posemo             float4, 
+  negemo             float4, 
+  anx                float4, 
+  anger              float4, 
+  sad                float4, 
+  social             float4, 
+  ffamily             float4, 
+  friend             float4, 
+  female             float4, 
+  male               float4, 
+  cogproc            float4, 
+  insight            float4, 
+  cause              float4, 
+  discrep            float4, 
+  tentat             float4, 
+  certain            float4, 
+  differ             float4, 
+  percept            float4, 
+  see                float4, 
+  hear               float4, 
+  feel               float4, 
+  bio                float4, 
+  body               float4, 
+  health             float4, 
+  sexual             float4, 
+  ingest             float4, 
+  drives             float4, 
+  affiliation        float4, 
+  achieve            float4, 
+  ppower              float4, 
+  reward             float4, 
+  risk               float4, 
+  focuspat           float4, 
+  focuspresent       float4, 
+  focusfuture        float4, 
+  relativ            float4, 
+  motion             float4, 
+  sspace              float4, 
+  ttime               float4, 
+  wwork               float4, 
+  leisure            float4, 
+  home               float4, 
+  mmoney              float4, 
+  relig              float4, 
+  death              float4, 
+  informal           float4, 
+  swear              float4, 
+  netspeak           float4, 
+  assent             float4, 
+  nonflu             float4, 
+  filler             float4,
+  ALLPunc            float4, 
+  Pperiod             float4, 
+  Comma              float4, 
+  Colon              float4, 
+  SemiC              float4, 
+  QMark              float4, 
+  Exclam             float4, 
+  Dash               float4, 
+  Qquote              float4, 
+  Apostro            float4, 
+  Perenth            float4, 
+  OtherP             float4, 
+  Url                varchar(255), 
+  PRIMARY KEY (Review_ExpertId));
+  
+CREATE TABLE Review_User (
+  Review_UserId      SERIAL NOT NULL, 
+  MovieMovieId       int4, 
+  ReviewerReviewerId int4, 
+reviewingsid       int4,
+  idvscore           int4, 
+  reviewer           varchar(255),
+  Review             varchar(255), 
+  dateP              date, 
+  thumbsUp           int4, 
+  thumbsTot          int4, 
+  WC                 int4, 
+  Analytic           float4, 
+  Clout              float4, 
+  Authentic          float4, 
+  Tone               float4, 
+  WPS                float4, 
+  Sixltr             float4, 
+  Dic                float4, 
+  ffunction         float4, 
+  pronoun            float4, 
+  ppron              float4, 
+  I                  float4, 
+  We                 float4, 
+  You                float4, 
+  shehe              float4, 
+  they               float4, 
+  ipron              float4, 
+  article            float4, 
+  prep               float4, 
+  auxverb            float4, 
+  adverb             float4, 
+  conj               float4, 
+  negate             float4, 
+  verb               float4, 
+  adj                float4, 
+  compare            float4, 
+  interrog           float4, 
+  nnumber             float4, 
+  quant              float4, 
+  affect             float4, 
+  posemo             float4, 
+  negemo             float4, 
+  anx                float4, 
+  anger              float4, 
+  sad                float4, 
+  social             float4, 
+  ffamily            float4, 
+  friend             float4, 
+  female             float4, 
+  male               float4, 
+  cogproc            float4, 
+  insight            float4, 
+  cause              float4, 
+  discrep            float4, 
+  tentat             float4, 
+  certain            float4, 
+  differ             float4, 
+  percept            float4, 
+  see                float4, 
+  hear               float4, 
+  feel               float4, 
+  bio                float4, 
+  body               float4, 
+  health             float4, 
+  sexual             float4, 
+  ingest             float4, 
+  drives             float4, 
+  affiliation        float4, 
+  achieve            float4, 
+  ppower              float4, 
+  reward             float4, 
+  risk               float4, 
+  focuspat           float4, 
+  focuspresent       float4, 
+  focusfuture        float4, 
+  relativ            float4, 
+  motion             float4, 
+  sspace              float4, 
+  ttime               float4, 
+  wwork               float4, 
+  leisure            float4, 
+  home               float4, 
+  mmoney              float4, 
+  relig              float4, 
+  death              float4, 
+  informal           float4, 
+  swear              float4, 
+  netspeak           float4, 
+  assent             float4, 
+  nonflu             float4,
+  filler             float4,
+  ALLPunc            float4, 
+  Pperiod             float4, 
+  Comma              float4, 
+  Colon              float4, 
+  SemiC              float4, 
+  QMark              float4, 
+  Exclam             float4, 
+  Dash               float4, 
+  Qquote              float4, 
+  Apostro            float4, 
+  Perenth            float4, 
+  OtherP             float4, 
+  Url                varchar(255), 	
+  PRIMARY KEY (Review_UserId));
+  
+CREATE TABLE Reviewer (
+  ReviewerId SERIAL NOT NULL, 
+  First_name varchar(255), 
+  Last_name  varchar(255), 
+  PRIMARY KEY (ReviewerId));
+  
+CREATE TABLE Studio (
+  StudioId    SERIAL NOT NULL, 
+  fName       varchar(255), 
+  metaCleanId int4, 
+  PRIMARY KEY (StudioId));
+  
+CREATE TABLE Studio_Movie (
+  StudioStudioId int4 NOT NULL, 
+  MovieMovieId   int4 NOT NULL, 
+  PRIMARY KEY (StudioStudioId, MovieMovieId));
+  
+  -- Add Foreign Key
+  
+ALTER TABLE Review_Expert ADD CONSTRAINT FKReview_Exp977219 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Review_User ADD CONSTRAINT FKReview_Use745979 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Studio_Movie ADD CONSTRAINT FKStudio_Mov511541 FOREIGN KEY (StudioStudioId) REFERENCES Studio (StudioId);
+ALTER TABLE Studio_Movie ADD CONSTRAINT FKStudio_Mov223025 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Review_Expert ADD CONSTRAINT FKReview_Exp139751 FOREIGN KEY (ReviewerReviewerId) REFERENCES Reviewer (ReviewerId);
+ALTER TABLE Review_User ADD CONSTRAINT FKReview_Use108640 FOREIGN KEY (ReviewerReviewerId) REFERENCES Reviewer (ReviewerId);
+ALTER TABLE Movie_Award ADD CONSTRAINT FKMovie_Awar378420 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Movie_Award ADD CONSTRAINT FKMovie_Awar370254 FOREIGN KEY (AwardAwardId) REFERENCES Award (AwardId);
+ALTER TABLE Movie_genre ADD CONSTRAINT FKMovie_genr808331 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Movie_genre ADD CONSTRAINT FKMovie_genr658527 FOREIGN KEY (genregenreId) REFERENCES genre (genreId);
+ALTER TABLE Movie_Actor ADD CONSTRAINT FKMovie_Acto956060 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE Movie_Actor ADD CONSTRAINT FKMovie_Acto428200 FOREIGN KEY (ActorActorId) REFERENCES Actor (ActorId);
+ALTER TABLE Director_Movie ADD CONSTRAINT FKDirector_94552 FOREIGN KEY (DirectorDirectorId) REFERENCES Director (DirectorId);
+ALTER TABLE Director_Movie ADD CONSTRAINT FKDirector_583569 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE keywords_Movie ADD CONSTRAINT FKkeywords_757180 FOREIGN KEY (keywordskeywordsId) REFERENCES keywords (keywordsId);
+ALTER TABLE keywords_Movie ADD CONSTRAINT FKkeywords_718771 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+ALTER TABLE creative_type_Movie ADD CONSTRAINT FKcreative_t621933 FOREIGN KEY (creative_typecreative_typeId) REFERENCES creative_type (creative_typeId);
+ALTER TABLE creative_type_Movie ADD CONSTRAINT FKcreative_t315674 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
+
+--end
