@@ -1,7 +1,6 @@
 -- Drop statement 
 -- First the constraints are droped 
 -- Then the table
-#Used for rewriting the Serial Key back to 1
 ALTER TABLE IF EXISTS Review_Expert DROP CONSTRAINT FKReview_Exp977219;
 ALTER TABLE IF EXISTS Review_User DROP CONSTRAINT FKReview_Use745979;
 ALTER TABLE IF EXISTS Studio_Movie DROP CONSTRAINT FKStudio_Mov511541;
@@ -20,7 +19,6 @@ ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_757180;
 ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_718771;
 ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t621933;
 ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t315674;
-#It deletes/drops the table for a new session
 DROP TABLE IF EXISTS Actor CASCADE;
 DROP TABLE IF EXISTS Award CASCADE;
 DROP TABLE IF EXISTS creative_type CASCADE;
@@ -41,23 +39,20 @@ DROP TABLE IF EXISTS Studio CASCADE;
 DROP TABLE IF EXISTS Studio_Movie CASCADE;
 
 -- create table statement 
-#Creating the entities based on the ERD layout
+
 CREATE TABLE Actor (
   ActorId     SERIAL NOT NULL, 
   fName       varchar(255), 
-  metaCleanId int4, 
   PRIMARY KEY (ActorId));
   
 CREATE TABLE Award (
   AwardId     SERIAL NOT NULL, 
   fName      varchar(255), 
-  metaCleanId int4, 
   PRIMARY KEY (AwardId));
   
 CREATE TABLE creative_type (
   creative_typeId SERIAL NOT NULL, 
   fName              varchar(255), 
-  saledId            int4, 
   PRIMARY KEY (creative_typeId));
   
 CREATE TABLE creative_type_Movie (
@@ -68,7 +63,6 @@ CREATE TABLE creative_type_Movie (
 CREATE TABLE Director (
   DirectorId SERIAL NOT NULL, 
   fName         varchar(255), 
-  metaCleanId   int4, 
   PRIMARY KEY (DirectorId));
   
 CREATE TABLE Director_Movie (
@@ -79,14 +73,11 @@ CREATE TABLE Director_Movie (
 CREATE TABLE genre (
   genreId     SERIAL NOT NULL, 
   fName       varchar(255), 
-  metaCleanId int4, 
-  saledId     int4, 
   PRIMARY KEY (genreId));
   
 CREATE TABLE keywords (
   keywordsId SERIAL NOT NULL, 
   Keyword       varchar(255), 
-  saledId       int4, 
   PRIMARY KEY (keywordsId));
   
 CREATE TABLE keywords_Movie (
@@ -110,10 +101,11 @@ CREATE TABLE Movie (
   release_date                 date, 
   summary                      varchar(700), 
   metascore                    int4, 
-  userscore                    float4,  
-  metaCleanId                  int4, 
+  userscore                    float4,   
   salesUrl                     varchar(255), 
   MetaCleanUrl                 varchar(255), 
+	genre		varchar(255),
+	keywords    varchar(255),
   PRIMARY KEY (MovieId));
   
 CREATE TABLE Movie_Actor (
@@ -133,12 +125,12 @@ CREATE TABLE Movie_genre (
   
 CREATE TABLE Review_Expert (
   Review_ExpertId    SERIAL NOT NULL, 
-  MovieMovieId       int4 NOT NULL, 
-  ReviewerReviewerId int4 NOT NULL, 
+  MovieMovieId       int4, 
+  ReviewerReviewerId int4, 
   reviewingsid       int4,
   idvscore           int4, 
-  reviewer           varchar(255),	
-  Review             varchar(255), 
+  reviewer           varchar(10000),	
+  Review             varchar(10000), 
   dateP              date, 
   WC                 int4, 
   Analytic           float4, 
@@ -167,7 +159,7 @@ CREATE TABLE Review_Expert (
   adj                float4, 
   compare            float4, 
   interrog           float4, 
-  nnumber            float4, 
+  nnumber             float4, 
   quant              float4, 
   affect             float4, 
   posemo             float4, 
@@ -176,7 +168,7 @@ CREATE TABLE Review_Expert (
   anger              float4, 
   sad                float4, 
   social             float4, 
-  ffamily            float4, 
+  ffamily             float4, 
   friend             float4, 
   female             float4, 
   male               float4, 
@@ -199,7 +191,7 @@ CREATE TABLE Review_Expert (
   drives             float4, 
   affiliation        float4, 
   achieve            float4, 
-  ppower             float4, 
+  ppower              float4, 
   reward             float4, 
   risk               float4, 
   focuspat           float4, 
@@ -207,12 +199,12 @@ CREATE TABLE Review_Expert (
   focusfuture        float4, 
   relativ            float4, 
   motion             float4, 
-  sspace             float4, 
-  ttime              float4, 
-  wwork              float4, 
+  sspace              float4, 
+  ttime               float4, 
+  wwork               float4, 
   leisure            float4, 
   home               float4, 
-  mmoney             float4, 
+  mmoney              float4, 
   relig              float4, 
   death              float4, 
   informal           float4, 
@@ -222,14 +214,14 @@ CREATE TABLE Review_Expert (
   nonflu             float4, 
   filler             float4,
   ALLPunc            float4, 
-  Pperiod            float4, 
+  Pperiod             float4, 
   Comma              float4, 
   Colon              float4, 
   SemiC              float4, 
   QMark              float4, 
   Exclam             float4, 
   Dash               float4, 
-  Qquote             float4, 
+  Qquote              float4, 
   Apostro            float4, 
   Perenth            float4, 
   OtherP             float4, 
@@ -238,9 +230,9 @@ CREATE TABLE Review_Expert (
   
 CREATE TABLE Review_User (
   Review_UserId      SERIAL NOT NULL, 
-  MovieMovieId       int4 NOT NULL, 
-  ReviewerReviewerId int4 NOT NULL, 
-  reviewingsid       int4,
+  MovieMovieId       int4, 
+  ReviewerReviewerId int4, 
+reviewingsid       int4,
   idvscore           int4, 
   reviewer           varchar(255),
   Review             varchar(255), 
@@ -255,7 +247,7 @@ CREATE TABLE Review_User (
   WPS                float4, 
   Sixltr             float4, 
   Dic                float4, 
-  ffunction          float4, 
+  ffunction         float4, 
   pronoun            float4, 
   ppron              float4, 
   I                  float4, 
@@ -274,7 +266,7 @@ CREATE TABLE Review_User (
   adj                float4, 
   compare            float4, 
   interrog           float4, 
-  nnumber            float4, 
+  nnumber             float4, 
   quant              float4, 
   affect             float4, 
   posemo             float4, 
@@ -306,7 +298,7 @@ CREATE TABLE Review_User (
   drives             float4, 
   affiliation        float4, 
   achieve            float4, 
-  ppower             float4, 
+  ppower              float4, 
   reward             float4, 
   risk               float4, 
   focuspat           float4, 
@@ -314,12 +306,12 @@ CREATE TABLE Review_User (
   focusfuture        float4, 
   relativ            float4, 
   motion             float4, 
-  sspace             float4, 
-  ttime              float4, 
-  wwork              float4, 
+  sspace              float4, 
+  ttime               float4, 
+  wwork               float4, 
   leisure            float4, 
   home               float4, 
-  mmoney             float4, 
+  mmoney              float4, 
   relig              float4, 
   death              float4, 
   informal           float4, 
@@ -329,14 +321,14 @@ CREATE TABLE Review_User (
   nonflu             float4,
   filler             float4,
   ALLPunc            float4, 
-  Pperiod            float4, 
+  Pperiod             float4, 
   Comma              float4, 
   Colon              float4, 
   SemiC              float4, 
   QMark              float4, 
   Exclam             float4, 
   Dash               float4, 
-  Qquote             float4, 
+  Qquote              float4, 
   Apostro            float4, 
   Perenth            float4, 
   OtherP             float4, 
@@ -352,7 +344,6 @@ CREATE TABLE Reviewer (
 CREATE TABLE Studio (
   StudioId    SERIAL NOT NULL, 
   fName       varchar(255), 
-  metaCleanId int4, 
   PRIMARY KEY (StudioId));
   
 CREATE TABLE Studio_Movie (
@@ -361,7 +352,7 @@ CREATE TABLE Studio_Movie (
   PRIMARY KEY (StudioStudioId, MovieMovieId));
   
   -- Add Foreign Key
- #Creating and adding a foreign key constraint on multiple columns
+  
 ALTER TABLE Review_Expert ADD CONSTRAINT FKReview_Exp977219 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
 ALTER TABLE Review_User ADD CONSTRAINT FKReview_Use745979 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
 ALTER TABLE Studio_Movie ADD CONSTRAINT FKStudio_Mov511541 FOREIGN KEY (StudioStudioId) REFERENCES Studio (StudioId);
