@@ -1,7 +1,7 @@
 -- Drop statement 
 -- First the constraints are droped 
 -- Then the table
-#Used for resetting the Serial Key back to 1
+#Used for rewriting the Serial Key back to 1
 ALTER TABLE IF EXISTS Review_Expert DROP CONSTRAINT FKReview_Exp977219;
 ALTER TABLE IF EXISTS Review_User DROP CONSTRAINT FKReview_Use745979;
 ALTER TABLE IF EXISTS Studio_Movie DROP CONSTRAINT FKStudio_Mov511541;
@@ -20,7 +20,7 @@ ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_757180;
 ALTER TABLE IF EXISTS keywords_Movie DROP CONSTRAINT FKkeywords_718771;
 ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t621933;
 ALTER TABLE IF EXISTS creative_type_Movie DROP CONSTRAINT FKcreative_t315674;
-#Used for deleting the tables to avoid repetition
+#It deletes/drops the table for a new session
 DROP TABLE IF EXISTS Actor CASCADE;
 DROP TABLE IF EXISTS Award CASCADE;
 DROP TABLE IF EXISTS creative_type CASCADE;
@@ -361,7 +361,7 @@ CREATE TABLE Studio_Movie (
   PRIMARY KEY (StudioStudioId, MovieMovieId));
   
   -- Add Foreign Key
- #Creating and adding a primary key constraint on multiple columns  
+ #Creating and adding a foreign key constraint on multiple columns
 ALTER TABLE Review_Expert ADD CONSTRAINT FKReview_Exp977219 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
 ALTER TABLE Review_User ADD CONSTRAINT FKReview_Use745979 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
 ALTER TABLE Studio_Movie ADD CONSTRAINT FKStudio_Mov511541 FOREIGN KEY (StudioStudioId) REFERENCES Studio (StudioId);
