@@ -86,12 +86,11 @@ CREATE TABLE keywords_Movie (
   PRIMARY KEY (keywordskeywordsId, MovieMovieId));
 
 CREATE TABLE Movie (
-  MovieId                      SERIAL NOT NULL, 
-  saledId                      int4, 
+  MovieId                      SERIAL NOT NULL,  
   yyear                         date, 
   title                        varchar(255), 
   runtime                      int4, 
-  international_box_office     varchar(255), 
+  international_box_office     BIGINT, 
   domestic_box_office          int4, 
   worldwide_box_office         BIGINT, 
   production_budget            int4, 
@@ -234,8 +233,8 @@ CREATE TABLE Review_User (
   ReviewerReviewerId int4, 
 reviewingsid       int4,
   idvscore           int4, 
-  reviewer           varchar(255),
-  Review             varchar(255), 
+  reviewer           varchar(10000),
+  Review             varchar(60000), 
   dateP              date, 
   thumbsUp           int4, 
   thumbsTot          int4, 
@@ -371,5 +370,3 @@ ALTER TABLE keywords_Movie ADD CONSTRAINT FKkeywords_757180 FOREIGN KEY (keyword
 ALTER TABLE keywords_Movie ADD CONSTRAINT FKkeywords_718771 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
 ALTER TABLE creative_type_Movie ADD CONSTRAINT FKcreative_t621933 FOREIGN KEY (creative_typecreative_typeId) REFERENCES creative_type (creative_typeId);
 ALTER TABLE creative_type_Movie ADD CONSTRAINT FKcreative_t315674 FOREIGN KEY (MovieMovieId) REFERENCES Movie (MovieId);
-
---end
