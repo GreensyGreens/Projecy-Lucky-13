@@ -58,8 +58,12 @@ FROM 'C:\Database\awards.csv
 DELIMITER ';'
 CSV HEADER;
 
+SELECT * FROM award
+
 COPY Director(fname)
 FROM 'C:\Database\director.csv
 DELIMITER ';'
 CSV HEADER;
+
+SELECT * FROM Director
 
