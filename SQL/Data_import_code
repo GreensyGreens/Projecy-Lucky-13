@@ -1,0 +1,54 @@
+COPY review_expert(idvscore,reviewer,review,datep,WC,Analytic,Clout,Authentic,Tone,WPS,Sixltr,Dic,ffunction,pronoun,ppron,I,We,You,shehe,they,ipron,article,prep,auxverb,adverb,conj,negate,verb,adj,compare,interrog,nnumber,quant,affect,posemo,negemo,anx,anger,sad,social,ffamily,friend,female,male,cogproc,insight,cause,discrep,tentat,certain,differ,percept,see,hear,feel,bio,body,health,sexual,ingest,drives,affiliation,achieve,ppower,reward,risk,focuspat,focuspresent,focusfuture,relativ,motion,sspace,ttime,wwork,leisure,home,mmoney,relig,death,informal,swear,netspeak,assent,nonflu,filler,ALLPunc,Pperiod,Comma,Colon,SemiC,QMark,Exclam,Dash,Qquote,Apostro,Perenth,OtherP,Url)
+FROM 'C:\database\exp_review2.csv'
+DELIMITER ','
+CSV HEADER;
+
+select * from review_expert
+
+COPY public.review_user (reviewingsid, idvscore, reviewer, datep, Review, thumbsUp,	thumbsTot, WC,	Analytic, Clout, authentic,	Tone,	WPS,	Sixltr,	Dic, ffunction,	pronoun, ppron, i, we, you,	shehe,	they,	ipron,	article, prep, auxverb,	adverb,	conj, negate, verb,	adj, compare, interrog,	nnumber, quant,	affect,	posemo,	negemo,	anx,	anger,	sad, social, ffamily, friend,	female,	male,	cogproc,	insight,	cause,	discrep,	tentat,	certain,	differ,	percept,	see,	hear,	feel,	bio, body,	health,	sexual,	ingest,	drives,	affiliation,	achieve,	ppower,	reward,	risk,	focuspat,	focuspresent,	focusfuture,	relativ,	motion,	sspace,	ttime,	wwork,	leisure,	home,	mmoney,	relig,	death,	informal,	swear,	netspeak,	assent,	nonflu,	filler,	AllPunc, Pperiod,	Comma,	Colon,	SemiC,	QMark,	Exclam,	Dash,	qquote,	Apostro, Perenth,	OtherP,	Url)
+FROM 'C:\Users\Public\User_Reviews_Final_Clean_5.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+COPY creative_type (saledid, fName)
+FROM 'C:\Users\Green\OneDrive\Desktop\Creative_type.csv'
+DELIMITER ';'
+CSV HEADER;
+
+SELECT * FROM creative_type
+
+COPY movie(saledid, yyear,	title,	runtime,	international_box_office,	domestic_box_office,	worldwide_box_office,	production_budget,	theatre_count,	opening_weekend,	aaverage_run_per_theatre,	release_date,	summary,	metascore,	userscore,	metacleanid, salesurl,	metacleanurl)
+FROM 'C:\Users\Public\sales10.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+COPY studio (metacleanid, fname)
+FROM 'C:\Users\Green\OneDrive\Desktop\studio.csv'
+DELIMITER ';'
+CSV HEADER;
+
+SELECT * FROM studio
+
+
+COPY keywords (saledid, keyword)
+FROM 'C:\Users\Green\OneDrive\Desktop\Keywords.csv'
+DELIMITER ';'
+CSV HEADER;
+
+SELECT * FROM keywords
+
+
+COPY actor (metacleanid, fname)
+FROM 'C:\Users\Green\OneDrive\Desktop\Actor.csv'
+DELIMITER ';'
+CSV HEADER;
+
+SELECT * FROM actor
+
+COPY genre(fname,	metacleanid,	saledid)
+FROM 'C:\Users\Public\genre2.csv'
+DELIMITER ','
+CSV HEADER;
+
+SELECT * FROM genre
