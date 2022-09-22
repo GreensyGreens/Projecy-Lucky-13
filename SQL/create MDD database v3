@@ -301,7 +301,7 @@ reviewingsid       int4,
   ppower              float4, 
   reward             float4, 
   risk               float4, 
-  focuspat           float4, 
+  focuspast           float4, 
   focuspresent       float4, 
   focusfuture        float4, 
   relativ            float4, 
@@ -406,6 +406,13 @@ FROM 'C:\Users\Public\Documents\CSV\award_2.csv'
 DELIMITER ';'
 CSV HEADER;
 
+COPY review_expert(MovieMovieId,idvscore,reviewer,review,datep,WC,Analytic,Clout,Authentic,Tone,WPS,Sixltr,Dic,ffunction,pronoun,ppron,I,We,You,shehe,they,ipron,article,prep,auxverb,adverb,conj,negate,verb,adj,compare,interrog,nnumber,quant,affect,posemo,negemo,anx,anger,sad,social,ffamily,friend,female,male,cogproc,insight,cause,discrep,tentat,certain,differ,percept,see,hear,feel,bio,body,health,sexual,ingest,drives,affiliation,achieve,ppower,reward,risk,focuspat,focuspresent,focusfuture,relativ,motion,sspace,ttime,wwork,leisure,home,mmoney,relig,death,informal,swear,netspeak,assent,nonflu,filler,ALLPunc,Pperiod,Comma,Colon,SemiC,QMark,Exclam,Dash,Qquote,Apostro,Perenth,OtherP,Url)
+FROM 'C:\Users\Public\Documents\CSV\review_expert_movie.csv'
+DELIMITER ','
+CSV HEADER;
+
+
+
 COPY creative_type (creative_type_name)
 FROM 'C:\Users\Public\Documents\CSV\creative_type.csv'
 DELIMITER ';'
@@ -439,7 +446,7 @@ DELIMITER ','
 CSV HEADER;
 
 COPY movie_actor (MovieMovieId, ActorActorId)
-FROM 'C:\Users\Public\Documents\CSV\actor_movie_FK.csv'
+FROM 'C:\Users\Public\Documents\CSV\actor_movie_FK.csv' 
 DELIMITER ','
 CSV HEADER;
   
@@ -454,6 +461,8 @@ from 'C:\Users\Public\Documents\CSV\studio_movie_fk.csv'
 DELIMITER ','
 CSV HEADER;
 
+
 ALTER TABLE actor DROP COLUMN title
+
 
 
