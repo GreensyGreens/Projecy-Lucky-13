@@ -1,0 +1,41 @@
+
+
+-- SELECT  movie.MovieId, keywords.keywordsId
+-- FROM keywords
+-- INNER JOIN movie ON keywords.keyword = movie.keywords;
+
+-- SELECT  movie.MovieId, genre.genreId
+-- FROM genre
+-- INNER JOIN movie ON genre.fName = movie.genre;
+
+
+-- SELECT  movie.MovieId, director.DirectorId
+-- FROM director
+-- INNER JOIN movie ON director.title = movie.title;
+
+
+-- SELECT  movie.MovieId, director.DirectorId
+-- FROM director
+-- INNER JOIN movie ON director.title = movie.title;
+
+-- SELECT  movie.MovieId, creative_type.creative_typeId
+-- FROM creative_type
+-- INNER JOIN movie ON creative_type.creative_type_name = movie.creative_type;
+
+-- SELECT movie.movieId, actor.actorid
+-- FROM actor
+-- Inner join movie on actor.title = movie.title
+
+-- SELECT movie.movieId, award.awardid
+-- FROM award
+-- Inner join movie on award.fname = movie.title
+
+-- SELECT studio.studioId, movie.movieid
+-- FROM movie
+-- Inner join studio on  movie.title = studio.fname
+
+-- SELECT *
+-- FROM movie
+-- LEFT JOIN review_expert
+-- On movie.title = review_expert.url ;
+
